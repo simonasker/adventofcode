@@ -14,6 +14,8 @@ fn main() {
         let l = v[0].parse::<i32>().unwrap();
         let w = v[1].parse::<i32>().unwrap();
         let h = v[2].parse::<i32>().unwrap();
-        println!("{}x{}x{}", l, w, h)
+
+        let surface_area = 2 * l * w + 2 * w * h + 2 * h * l;
+        println!("Surface area: {}", surface_area);
     }
 }
