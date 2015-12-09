@@ -10,6 +10,10 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     for line in input_string.lines() {
-        println!("{}", line)
+        let v: Vec<&str> = line.split('x').collect();
+        let l = v[0].parse::<i32>().unwrap();
+        let w = v[1].parse::<i32>().unwrap();
+        let h = v[2].parse::<i32>().unwrap();
+        println!("{}x{}x{}", l, w, h)
     }
 }
