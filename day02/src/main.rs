@@ -10,10 +10,13 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     for line in input_string.lines() {
-        let v: Vec<&str> = line.split('x').collect();
-        let l = v[0].parse::<i32>().unwrap();
-        let w = v[1].parse::<i32>().unwrap();
-        let h = v[2].parse::<i32>().unwrap();
+        let split = line.split('x');
+        let v: Vec<i32> = split.map(|x| x.parse::<i32>().unwrap()).collect();
+
+        // TODO This should probably be done with pattern matching
+        let l = v[0];
+        let w = v[1];
+        let h = v[2];
 
         let surface_area = 2 * l * w + 2 * w * h + 2 * h * l;
         println!("Surface area: {}", surface_area);
