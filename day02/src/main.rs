@@ -9,5 +9,7 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
-    println!("{}", input_string);
+    for line in input_string.lines() {
+        println!("{}", line)
+    }
 }
