@@ -11,7 +11,8 @@ fn main() {
 
     for line in input_string.lines() {
         let split = line.split('x');
-        let v: Vec<i32> = split.map(|x| x.parse::<i32>().unwrap()).collect();
+        let mut v: Vec<i32> = split.map(|x| x.parse::<i32>().unwrap()).collect();
+        v.sort();
 
         // TODO This should probably be done with pattern matching
         let l = v[0];
@@ -19,6 +20,8 @@ fn main() {
         let h = v[2];
 
         let surface_area = 2 * l * w + 2 * w * h + 2 * h * l;
+        let slack = l * w;
         println!("Surface area: {}", surface_area);
+        println!("Slack: {}", slack);
     }
 }
