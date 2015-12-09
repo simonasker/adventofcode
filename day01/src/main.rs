@@ -1,3 +1,7 @@
 fn main() {
-    println!("Hello, world!");
+    let input = "(((";
+
+    for c in input.chars() {
+        println!("{}", c);
+    }
 }
