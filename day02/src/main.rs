@@ -9,6 +9,7 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let mut total_area = 0;
     for line in input_string.lines() {
         let split = line.split('x');
         let mut v: Vec<i32> = split.map(|x| x.parse::<i32>().unwrap()).collect();
@@ -21,7 +22,7 @@ fn main() {
 
         let surface_area = 2 * l * w + 2 * w * h + 2 * h * l;
         let slack = l * w;
-        println!("Surface area: {}", surface_area);
-        println!("Slack: {}", slack);
+        total_area = total_area + surface_area + slack;
     }
+    println!("Total area: {}", total_area);
 }
