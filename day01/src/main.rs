@@ -1,11 +1,13 @@
 fn main() {
     let input = "(((";
 
+    let mut floor = 0;
     for c in input.chars() {
         match c {
-            '(' => println!("up"),
-            ')' => println!("down"),
-            _   => println!("INVALID"),
+            '(' => floor += 1,
+            ')' => floor -= 1,
+            _   => continue,
         }
     }
+    println!("{}", floor);
 }
