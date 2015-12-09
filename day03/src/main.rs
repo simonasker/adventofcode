@@ -9,5 +9,13 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
-    println!("{}", input_string);
+    for c in input_string.chars() {
+        match c {
+            '^' => println!("up"),
+            '>' => println!("right"),
+            'v' => println!("down"),
+            '<' => println!("left"),
+            _   => continue,
+        }
+    }
 }
