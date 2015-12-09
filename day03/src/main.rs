@@ -10,20 +10,24 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut coords = HashSet::new();
-    let mut current_pos = (0, 0);
-    coords.insert(current_pos);
-    for c in input_string.chars() {
+    let mut current_pos = vec![(0, 0), (0, 0)];
+    let mut x = 0;
+    coords.insert(current_pos[x]);
+    for (i, c) in input_string.chars().enumerate() {
+        if part == 2 {
+            x = i - (i / 2) * 2;
+        }
         match c {
-            '^' => current_pos.1 += 1,
-            '>' => current_pos.0 += 1,
-            'v' => current_pos.1 -= 1,
-            '<' => current_pos.0 -= 1,
+            '^' => current_pos[x].1 += 1,
+            '>' => current_pos[x].0 += 1,
+            'v' => current_pos[x].1 -= 1,
+            '<' => current_pos[x].0 -= 1,
             _   => continue,
         }
-        coords.insert(current_pos);
+        coords.insert(current_pos[x]);
     }
-
     println!("Number of houses visited: {}", coords.len());
-
 }
