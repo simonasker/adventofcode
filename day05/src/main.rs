@@ -15,9 +15,16 @@ fn main() {
     let mut prev = ' ';
     let mut has_double = false;
 
-    for line in input_string.lines() {
+
+    'lines: for line in input_string.lines() {
+        for d in vec!["ab", "cd", "pq", "xy"] {
+            if line.contains(d) {
+                continue 'lines;
+            }
+        }
         vowels = 0;
         prev = ' ';
+        has_double = false;
         for c in line.chars() {
             if "aeiou".contains(c) {
                 vowels += 1;
