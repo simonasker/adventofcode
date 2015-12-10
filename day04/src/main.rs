@@ -7,7 +7,6 @@ use crypto::md5::Md5;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
-    println!("You entered: {}", args[1]);
     let input = &args[1];
 
     let mut n = 1;
@@ -16,9 +15,9 @@ fn main() {
 
         let mut md5 = Md5::new();
         md5.input_str(&s);
-        println!("{}: {}", s, md5.result_str());
+        let hash = md5.result_str();
 
-        if n == 10 {
+        if &hash[..5] == "00000" {
             break;
         }
         n += 1;
