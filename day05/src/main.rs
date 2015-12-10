@@ -13,10 +13,20 @@ fn main() {
     if args[2] == "1" {
         nice = part_1(&input_string);
     } else if args[2] == "2" {
-        println!("Part 2 not implemented");
+        nice = part_2(&input_string);
     }
 
     println!("Number of nice strings: {}", nice);
+}
+
+fn part_2(input: &String) -> i32 {
+    let mut nice = 0;
+    for line in input.lines() {
+        for c in line.chars() {
+            nice += 1;
+        }
+    }
+    return nice;
 }
 
 fn part_1(input: &String) -> i32 {
