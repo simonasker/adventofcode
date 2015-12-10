@@ -17,7 +17,7 @@ fn main() {
         md5.input_str(&s);
         let hash = md5.result_str();
 
-        if &hash[..5] == "00000" {
+        if hash.starts_with(&args[2]) {
             break;
         }
         n += 1;
