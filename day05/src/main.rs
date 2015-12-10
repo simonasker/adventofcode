@@ -10,17 +10,25 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     let mut nice = 0;
+
     let mut vowels = 0;
+    let mut prev = ' ';
+    let mut has_double = false;
+
     for line in input_string.lines() {
         vowels = 0;
+        prev = ' ';
         for c in line.chars() {
             if "aeiou".contains(c) {
                 vowels += 1;
             }
-            if vowels >= 3 {
-                nice += 1;
-                break;
+            if c == prev {
+                has_double = true;
             }
+            prev = c;
+        }
+        if has_double && vowels >= 3 {
+            nice += 1;
         }
     }
     println!("Number of nice strings: {}", nice);
