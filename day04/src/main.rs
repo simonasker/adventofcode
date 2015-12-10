@@ -2,6 +2,9 @@ extern crate crypto;
 
 use std::env;
 
+use crypto::digest::Digest;
+use crypto::md5::Md5;
+
 fn main() {
     let args: Vec<_> = env::args().collect();
     println!("You entered: {}", args[1]);
@@ -10,7 +13,11 @@ fn main() {
     let mut n = 1;
     loop {
         let s = format!("{}{}", input, n);
-        println!("{}", s);
+
+        let mut md5 = Md5::new();
+        md5.input_str(&s);
+        println!("{}: {}", s, md5.result_str());
+
         if n == 10 {
             break;
         }
