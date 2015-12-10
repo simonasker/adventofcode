@@ -1,3 +1,5 @@
+extern crate crypto;
+
 use std::env;
 
 fn main() {

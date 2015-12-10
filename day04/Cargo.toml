@@ -2,3 +2,6 @@
 name = "day04"
 version = "0.1.0"
 authors = ["Simon Andersson <simon.asker@gmail.com>"]
+
+[dependencies]
+rust-crypto = "^0.2"
