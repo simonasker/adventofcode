@@ -25,6 +25,8 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut grid: Vec<i32> = vec![0; SIZE * SIZE];
 
     for line in input_string.lines() {
@@ -54,13 +56,25 @@ fn main() {
         for x in a[0]..b[0] + 1 {
             for y in a[1]..b[1] + 1 {
                 match op {
-                    "on"     => grid[index(x, y)] = 1,
-                    "off"    => grid[index(x, y)] = 0,
-                    "toggle" => if grid[index(x, y)] == 0 {
-                        grid[index(x, y)] = 1;
-                    } else {
-                        grid[index(x, y)] = 0;
+                    "on" if part == 1 => { grid[index(x, y)] = 1 },
+                    "on" if part == 2 => { grid[index(x, y)] += 1 },
+
+                    "off" if part == 1 => { grid[index(x, y)] = 0 },
+                    "off" if part == 2 => {
+                        if grid[index(x, y)] > 0 {
+                            grid[index(x, y)] -= 1;
+                        }
                     },
+
+                    "toggle" if part == 1 => {
+                        if grid[index(x, y)] == 0 {
+                            grid[index(x, y)] = 1;
+                        } else {
+                            grid[index(x, y)] = 0;
+                        }
+                    },
+                    "toggle" if part == 2 => { grid[index(x, y)] += 2 },
+
                     _ => break,
                 }
             }
