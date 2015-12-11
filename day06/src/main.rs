@@ -1,3 +1,5 @@
+#![allow(unused_assignments)]
+
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
@@ -46,7 +48,7 @@ fn main() {
                 a = to_coord(v[2]);
                 b = to_coord(v[4]);
             },
-            _ => println!("Invalid instruction"),
+            _ => break,
         }
 
         for x in a[0]..b[0] + 1 {
@@ -59,7 +61,7 @@ fn main() {
                     } else {
                         grid[index(x, y)] = 0;
                     },
-                    _ => println!("Invalid instruction"),
+                    _ => break,
                 }
             }
         }
