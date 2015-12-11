@@ -18,4 +18,11 @@ fn main() {
     }
 
     println!("{:?}", grid);
+
+    // Calculate the number of lights that are turned on
+    let mut total = 0;
+    for i in grid {
+        total += i;
+    }
+    println!("Total: {}", total);
 }
