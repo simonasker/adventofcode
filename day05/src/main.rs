@@ -1,3 +1,5 @@
+#![allow(unused_assignments)]
+
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
@@ -22,8 +24,11 @@ fn main() {
 fn part_2(input: &String) -> i32 {
     let mut nice = 0;
     let mut repeating_single = false;
+    let mut repeating_double = false;
 
     for line in input.lines() {
+        repeating_single = false;
+        repeating_double = false;
 
         // Checks for repeating characters separated by one character
         for i in 2..line.len() {
@@ -32,7 +37,18 @@ fn part_2(input: &String) -> i32 {
             }
         }
 
-        if repeating_single {
+        // Checks for repeating non-overlapping pairs of characters
+        let mut pairs: Vec<&[u8]> = vec![];
+        for i in 2..line.len() - 1 {
+            let p = &line.as_bytes()[i-2..i];
+            let q = &line.as_bytes()[i..i+2];
+            pairs.push(p);
+            if pairs.contains(&q) {
+                repeating_double = true;
+            }
+        }
+
+        if repeating_single && repeating_double {
             nice += 1;
         }
     }
