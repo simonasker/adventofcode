@@ -21,8 +21,18 @@ fn main() {
 
 fn part_2(input: &String) -> i32 {
     let mut nice = 0;
+    let mut repeating_single = false;
+
     for line in input.lines() {
-        for c in line.chars() {
+
+        // Checks for repeating characters separated by one character
+        for i in 2..line.len() {
+            if line.as_bytes()[i] == line.as_bytes()[i-2] {
+                repeating_single = true;
+            }
+        }
+
+        if repeating_single {
             nice += 1;
         }
     }
