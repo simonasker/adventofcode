@@ -4,6 +4,8 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+use regex::Regex;
+
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -19,9 +21,13 @@ fn main() {
         total_code_chars += line.len();
 
         // Remove the surrounding quotes
-        let new_line = &line[1 .. line.len() - 1];
-        println!("New line: {}", new_line);
+        let mut new_line = line[1 .. line.len() - 1].to_owned();
 
+        let re = Regex::new(r"\\.").unwrap();
+
+        new_line = re.replace_all(&new_line, "#");
+
+        println!("New line: {}", new_line);
         total_string_chars += new_line.len();
         println!("");
     }
