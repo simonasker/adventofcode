@@ -5,6 +5,7 @@ use std::io::prelude::*;
 #[derive(Debug)]
 struct Gate {
     operator: String,
+    input: Vec<String>,
     output: String,
 }
 
@@ -21,18 +22,23 @@ fn main() {
 
         let mut g = Gate {
             operator: String::new(),
+            input: Vec::new(),
             output: String::new(),
         };
 
         match v.len() {
             3 => {
                 g.operator = "NOOP".to_owned();
+                g.input.push(v[0].to_owned());
             }
             4 => {
                 g.operator = v[0].to_owned();
+                g.input.push(v[1].to_owned());
             }
             5 => {
                 g.operator = v[1].to_owned();
+                g.input.push(v[0].to_owned());
+                g.input.push(v[2].to_owned());
             },
             _ => break,
         }
