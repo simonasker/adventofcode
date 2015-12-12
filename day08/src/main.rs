@@ -17,19 +17,16 @@ fn main() {
     let mut total_string_chars = 0;
 
     for line in input_string.lines() {
-        println!("Line: {}", line);
         total_code_chars += line.len();
 
         // Remove the surrounding quotes
         let mut new_line = line[1 .. line.len() - 1].to_owned();
 
-        let re = Regex::new(r"\\.").unwrap();
-
+        // Remove all escaped characters
+        let re = Regex::new(r"\\(\x22|\\|x[:xdigit:]{2})").unwrap();
         new_line = re.replace_all(&new_line, "#");
 
-        println!("New line: {}", new_line);
         total_string_chars += new_line.len();
-        println!("");
     }
 
     println!("Total number of code characters: {}", total_code_chars);
