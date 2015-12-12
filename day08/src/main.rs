@@ -9,7 +9,11 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let mut total_code_chars = 0;
+
     for line in input_string.lines() {
-        println!("{}", line);
+        total_code_chars += line.len();
     }
+
+    println!("Total number of code characters: {}", total_code_chars);
 }
