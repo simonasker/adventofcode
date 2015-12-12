@@ -53,6 +53,11 @@ fn main() {
     let mut wires: HashMap<String, u16> = HashMap::new();
 
     for (count, g) in gates.iter().enumerate() {
+        if wires.contains_key(&g.output) {
+            println!("Already done");
+            continue;
+        }
+
         println!("{}: {:?}", count, g);
         match &*g.operator {
             "NOOP" => {
