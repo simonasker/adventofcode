@@ -17,6 +17,8 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut gates: Vec<Gate> = Vec::new();
 
     for line in input_string.lines() {
@@ -51,6 +53,10 @@ fn main() {
     }
 
     let mut wires: HashMap<String, u16> = HashMap::new();
+
+    if part == 2 {
+        wires.insert("b".to_owned(), 16076);
+    }
 
     loop {
         for g in gates.iter() {
