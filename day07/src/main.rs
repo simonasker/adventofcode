@@ -10,6 +10,7 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     for line in input_string.lines() {
-        println!("{}", line);
+        let v: Vec<&str> = line.split_whitespace().collect();
+        println!("{:?}", v);
     }
 }
