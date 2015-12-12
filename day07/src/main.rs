@@ -5,6 +5,7 @@ use std::io::prelude::*;
 #[derive(Debug)]
 struct Gate {
     operator: String,
+    output: String,
 }
 
 fn main() {
@@ -20,6 +21,7 @@ fn main() {
 
         let mut g = Gate {
             operator: String::new(),
+            output: String::new(),
         };
 
         match v.len() {
@@ -34,6 +36,8 @@ fn main() {
             },
             _ => break,
         }
+
+        g.output = v[v.len()-1].to_owned();
 
         println!("{:?}", g);
     }
