@@ -14,7 +14,14 @@ fn main() {
     let mut total_code_chars = 0;
 
     for line in input_string.lines() {
+        println!("Line: {}", line);
         total_code_chars += line.len();
+
+        // Remove the surrounding quotes
+        let new_line = &line[1 .. line.len() - 1];
+        println!("New line: {}", new_line);
+
+        println!("");
     }
 
     println!("Total number of code characters: {}", total_code_chars);
