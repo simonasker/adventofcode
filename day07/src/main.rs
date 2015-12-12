@@ -56,7 +56,12 @@ fn main() {
         println!("{}: {:?}", count, g);
         match &*g.operator {
             "NOOP" => {
-                let x = g.input[0].parse::<u16>().unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        *wires.get(&g.input[0]).unwrap()
+                    },
+                };
                 wires.insert(g.output.clone(), x);
             },
             "AND" => {
