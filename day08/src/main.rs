@@ -12,6 +12,7 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     let mut total_code_chars = 0;
+    let mut total_string_chars = 0;
 
     for line in input_string.lines() {
         println!("Line: {}", line);
@@ -21,8 +22,11 @@ fn main() {
         let new_line = &line[1 .. line.len() - 1];
         println!("New line: {}", new_line);
 
+        total_string_chars += new_line.len();
         println!("");
     }
 
     println!("Total number of code characters: {}", total_code_chars);
+    println!("Total number of string characters: {}", total_string_chars);
+    println!("Answer: {}", total_code_chars - total_string_chars);
 }
