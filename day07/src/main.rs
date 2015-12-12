@@ -73,27 +73,99 @@ fn main() {
                 wires.insert(g.output.clone(), x);
             },
             "AND" => {
-                let x = *wires.get(&g.input[0]).unwrap();
-                let y = *wires.get(&g.input[1]).unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[0]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
+                let y = match g.input[1].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[1]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
                 wires.insert(g.output.clone(), x & y);
             },
             "OR" => {
-                let x = *wires.get(&g.input[0]).unwrap();
-                let y = *wires.get(&g.input[1]).unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[0]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
+                let y = match g.input[1].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[1]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
                 wires.insert(g.output.clone(), x | y);
             },
             "NOT" => {
-                let x = *wires.get(&g.input[0]).unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[0]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
                 wires.insert(g.output.clone(), !x);
             },
             "RSHIFT" => {
-                let x = *wires.get(&g.input[0]).unwrap();
-                let y = g.input[1].parse::<u16>().unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[0]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
+                let y = match g.input[1].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[1]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
                 wires.insert(g.output.clone(), x >> y);
             },
             "LSHIFT" => {
-                let x = *wires.get(&g.input[0]).unwrap();
-                let y = g.input[1].parse::<u16>().unwrap();
+                let x = match g.input[0].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[0]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
+                let y = match g.input[1].parse::<u16>() {
+                    Ok(a) => a,
+                    Err(_) => {
+                        match wires.get(&g.input[1]) {
+                            Some(a) => *a,
+                            None => continue,
+                        }
+                    },
+                };
                 wires.insert(g.output.clone(), x << y);
             },
             _ => continue,
