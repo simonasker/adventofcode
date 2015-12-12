@@ -66,6 +66,15 @@ fn main() {
                 let y = *wires.get(&g.input[1]).unwrap();
                 wires.insert(g.output.clone(), x & y);
             },
+            "OR" => {
+                let x = *wires.get(&g.input[0]).unwrap();
+                let y = *wires.get(&g.input[1]).unwrap();
+                wires.insert(g.output.clone(), x | y);
+            },
+            "NOT" => {
+                let x = *wires.get(&g.input[0]).unwrap();
+                wires.insert(g.output.clone(), !x);
+            },
             _ => continue,
         }
     }
