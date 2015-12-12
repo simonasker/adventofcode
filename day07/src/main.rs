@@ -1,6 +1,7 @@
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
+use std::collections::HashMap;
 
 #[derive(Debug)]
 struct Gate {
@@ -16,9 +17,10 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let mut gates: Vec<Gate> = Vec::new();
+
     for line in input_string.lines() {
         let v: Vec<&str> = line.split_whitespace().collect();
-        println!("{:?}", v);
 
         let mut g = Gate {
             operator: String::new(),
@@ -45,6 +47,20 @@ fn main() {
 
         g.output = v[v.len()-1].to_owned();
 
-        println!("{:?}", g);
+        gates.push(g);
     }
+
+    let mut wires: HashMap<String, u16> = HashMap::new();
+
+    for (count, g) in gates.iter().enumerate() {
+        println!("{}: {:?}", count, g);
+        match &*g.operator {
+            "NOOP" => {
+                wires.insert(g.output.clone(), g.input[0].parse::<u16>().unwrap());
+            },
+            _ => continue,
+        }
+    }
+
+    println!("{:#?}", wires);
 }
