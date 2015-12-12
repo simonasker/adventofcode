@@ -73,6 +73,16 @@ fn main() {
                 let x = *wires.get(&g.input[0]).unwrap();
                 wires.insert(g.output.clone(), !x);
             },
+            "RSHIFT" => {
+                let x = *wires.get(&g.input[0]).unwrap();
+                let y = g.input[1].parse::<u16>().unwrap();
+                wires.insert(g.output.clone(), x >> y);
+            },
+            "LSHIFT" => {
+                let x = *wires.get(&g.input[0]).unwrap();
+                let y = g.input[1].parse::<u16>().unwrap();
+                wires.insert(g.output.clone(), x << y);
+            },
             _ => continue,
         }
     }
