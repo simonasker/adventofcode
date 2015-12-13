@@ -2,11 +2,13 @@ use std::env;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
-    let input_string = &args[1];
+    let mut input_string = args[1].clone();
     println!("Input: {}", input_string);
 
-    let iterations = 40;
+    let iterations = args[2].parse::<i32>().unwrap();
+
     for i in 1 .. iterations + 1 {
+        println!("{}", i);
         let mut groups: Vec<Vec<char>> = Vec::new();
         let mut prev: char = ' ';
         for c in input_string.chars() {
@@ -18,10 +20,10 @@ fn main() {
         }
         groups.reverse();
 
-        let mut new_input = String::new();
+        input_string = String::new();
         for group in groups {
-            new_input.push_str(&format!("{}{}", group.len(), group[0]));
+            input_string.push_str(&format!("{}{}", group.len(), group[0]));
         }
-        println!("{:02}: {}", i, new_input);
     }
+    println!("Result: {}", input_string.len());
 }
