@@ -6,10 +6,15 @@ fn main() {
     println!("{}", input_string);
 
     let mut groups: Vec<Vec<char>> = Vec::new();
+    let mut prev: char = ' ';
     for c in input_string.chars() {
-        groups.insert(0, Vec::new());
+        if c != prev {
+            groups.insert(0, Vec::new());
+        }
         groups[0].push(c);
+        prev = c;
     }
+    groups.reverse();
 
     println!("{:?}", groups);
 }
