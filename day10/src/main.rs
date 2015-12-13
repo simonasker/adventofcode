@@ -3,7 +3,7 @@ use std::env;
 fn main() {
     let args: Vec<_> = env::args().collect();
     let input_string = &args[1];
-    println!("{}", input_string);
+    println!("Input: {}", input_string);
 
     let mut groups: Vec<Vec<char>> = Vec::new();
     let mut prev: char = ' ';
@@ -16,5 +16,9 @@ fn main() {
     }
     groups.reverse();
 
-    println!("{:?}", groups);
+    let mut new_input = String::new();
+    for group in groups {
+        new_input.push_str(&format!("{}{}", group.len(), group[0]));
+    }
+    println!("Result: {}", new_input);
 }
