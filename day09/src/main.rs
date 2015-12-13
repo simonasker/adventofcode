@@ -55,6 +55,7 @@ fn main() {
     println!("Number of possible routes: {:?}", routes.len());
 
     let mut shortest_route: i32 = i32::max_value();
+    let mut longest_route: i32 = i32::min_value();
     for route in routes {
         let mut route_length: i32 = 0;
         for i in 1 .. route.len() {
@@ -63,6 +64,11 @@ fn main() {
         if route_length < shortest_route {
             shortest_route = route_length;
         }
+        if route_length > longest_route {
+            longest_route = route_length;
+        }
+
     }
     println!("Shortest route: {}", shortest_route);
+    println!("Longest route: {}", longest_route);
 }
