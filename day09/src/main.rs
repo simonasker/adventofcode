@@ -4,19 +4,19 @@ use std::io::prelude::*;
 use std::collections::{HashSet, HashMap};
 
 
-fn permutations(n: usize, a: &mut Vec<i32>) {
+fn permutations(n: usize, a: &mut Vec<i32>, acc: &mut Vec<Vec<i32>>) {
     if n == 1 {
-        println!("Output: {:?}", a);
+        acc.push(a.clone());
     } else {
         for i in 0 .. n-1 {
-            permutations(n-1, a);
+            permutations(n-1, a, acc);
             if n % 2 == 0 {
                 a.swap(i, n-1);
             } else {
                 a.swap(0, n-1);
             }
         }
-        permutations(n-1, a);
+        permutations(n-1, a, acc);
     }
 }
 
@@ -42,8 +42,11 @@ fn main() {
 
     let mut a = vec![0, 1, 2];
     // println!("Before: {:?}", a);
+    let mut acc: Vec<Vec<_>> = Vec::new();
 
-    permutations(3, &mut a);
+    permutations(a.len(), &mut a, &mut acc);
+
+    println!("{:?}", acc);
 
     /* let perms = permutations(&mut a); */
     /* println!("After: {:?}", perms); */
