@@ -4,7 +4,7 @@ use std::io::prelude::*;
 use std::collections::{HashSet, HashMap};
 
 
-fn permutations(n: usize, a: &mut Vec<i32>, acc: &mut Vec<Vec<i32>>) {
+fn permutations<T: Clone>(n: usize, a: &mut Vec<T>, acc: &mut Vec<Vec<T>>) {
     if n == 1 {
         acc.push(a.clone());
     } else {
@@ -41,12 +41,13 @@ fn main() {
     }
 
     let mut a = vec![0, 1, 2];
+    // let mut a = vec!["apa", "bepa", "cepa"];
     // println!("Before: {:?}", a);
     let mut acc: Vec<Vec<_>> = Vec::new();
 
     permutations(a.len(), &mut a, &mut acc);
 
-    println!("{:?}", acc);
+    println!("{:?}", acc.len());
 
     /* let perms = permutations(&mut a); */
     /* println!("After: {:?}", perms); */
