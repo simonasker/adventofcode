@@ -40,16 +40,15 @@ fn main() {
         distances.insert((v[2], v[0]), v[4]);
     }
 
-    let mut a = vec![0, 1, 2];
-    // let mut a = vec!["apa", "bepa", "cepa"];
-    // println!("Before: {:?}", a);
+    let mut loc_vec = Vec::new();
+    for l in locations {
+        loc_vec.push(l);
+    }
+    println!("Locations: {:?}", loc_vec);
+
     let mut acc: Vec<Vec<_>> = Vec::new();
 
-    permutations(a.len(), &mut a, &mut acc);
+    permutations(loc_vec.len(), &mut loc_vec, &mut acc);
 
-    println!("{:?}", acc.len());
-
-    /* let perms = permutations(&mut a); */
-    /* println!("After: {:?}", perms); */
-
+    println!("Number of possible routes: {:?}", acc.len());
 }
