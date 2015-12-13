@@ -36,8 +36,10 @@ fn main() {
         locations.insert(v[0]);
         locations.insert(v[2]);
 
-        distances.insert((v[0], v[2]), v[4]);
-        distances.insert((v[2], v[0]), v[4]);
+        let distance = v[4].parse::<i32>().unwrap();
+
+        distances.insert((v[0], v[2]), distance);
+        distances.insert((v[2], v[0]), distance);
     }
 
     let mut loc_vec = Vec::new();
@@ -46,9 +48,21 @@ fn main() {
     }
     println!("Locations: {:?}", loc_vec);
 
-    let mut acc: Vec<Vec<_>> = Vec::new();
+    let mut routes: Vec<Vec<_>> = Vec::new();
 
-    permutations(loc_vec.len(), &mut loc_vec, &mut acc);
+    permutations(loc_vec.len(), &mut loc_vec, &mut routes);
 
-    println!("Number of possible routes: {:?}", acc.len());
+    println!("Number of possible routes: {:?}", routes.len());
+
+    let mut shortest_route: i32 = i32::max_value();
+    for route in routes {
+        let mut route_length: i32 = 0;
+        for i in 1 .. route.len() {
+            route_length += *distances.get(&(route[i-1], route[i])).unwrap();
+        }
+        if route_length < shortest_route {
+            shortest_route = route_length;
+        }
+    }
+    println!("Shortest route: {}", shortest_route);
 }
