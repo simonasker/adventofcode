@@ -3,7 +3,6 @@ use std::env;
 
 fn increment_string(s: String) -> String {
     let mut bytes = s.into_bytes();
-    let len = bytes.len();
     for i in (0 .. bytes.len()).rev() {
         bytes[i] += 1;
         if bytes[i] >= 123 {
@@ -16,7 +15,14 @@ fn increment_string(s: String) -> String {
 }
 
 fn is_valid(s: &String) -> bool {
-    s == "zz"
+    let mut a = false;
+    let bytes = s.clone().into_bytes();
+    for i in 2..bytes.len() {
+        if bytes[i] == bytes[i-1] + 1 && bytes[i] == bytes[i-2] + 2 {
+            a = true;
+        }
+    }
+    a
 }
 
 fn main() {
