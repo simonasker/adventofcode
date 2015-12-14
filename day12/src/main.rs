@@ -10,6 +10,8 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     for c in input_string.chars() {
-        println!("{}", c);
+        if c.is_digit(10) || c == '-' {
+            println!("{}", c);
+        }
     }
 }
