@@ -15,6 +15,10 @@ fn increment_string(s: String) -> String {
     String::from_utf8(bytes).unwrap()
 }
 
+fn is_valid(s: &String) -> bool {
+    s == "zz"
+}
+
 fn main() {
     let args: Vec<_> = env::args().collect();
     let mut input_string = args[1].clone();
@@ -23,7 +27,7 @@ fn main() {
     loop {
         input_string = increment_string(input_string);
         println!("Output: {}", input_string);
-        if input_string == "zz" {
+        if is_valid(&input_string) {
             break;
         }
     }
