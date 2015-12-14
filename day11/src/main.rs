@@ -17,9 +17,14 @@ fn increment_string(s: String) -> String {
 
 fn main() {
     let args: Vec<_> = env::args().collect();
-    let input_string = args[1].clone();
+    let mut input_string = args[1].clone();
 
     println!("Input: {}", input_string);
-    let inc_str = increment_string(input_string);
-    println!("Output: {}", inc_str);
+    loop {
+        input_string = increment_string(input_string);
+        println!("Output: {}", input_string);
+        if input_string == "zz" {
+            break;
+        }
+    }
 }
