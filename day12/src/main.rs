@@ -9,9 +9,17 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let mut acc = 0;
+    let mut acc_str = String::new();
     for c in input_string.chars() {
         if c.is_digit(10) || c == '-' {
-            println!("{}", c);
+            acc_str.push(c);
+        } else {
+            if let Ok(x) = i32::from_str_radix(&acc_str, 10) {
+                acc += x;
+            }
+            acc_str = String::new();
         }
     }
+    println!("Acc: {}", acc);
 }
