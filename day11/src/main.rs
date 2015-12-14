@@ -4,7 +4,14 @@ use std::env;
 fn increment_string(s: String) -> String {
     let mut bytes = s.into_bytes();
     let len = bytes.len();
-    bytes[len - 1] += 1;
+    for i in (0 .. bytes.len()).rev() {
+        bytes[i] += 1;
+        if bytes[i] >= 123 {
+            bytes[i] = 97;
+        } else {
+            break;
+        }
+    }
     String::from_utf8(bytes).unwrap()
 }
 
