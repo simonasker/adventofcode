@@ -15,14 +15,23 @@ fn increment_string(s: String) -> String {
 }
 
 fn is_valid(s: &String) -> bool {
-    let mut a = false;
+    let mut increasing_straight = false;
+
     let bytes = s.clone().into_bytes();
     for i in 2..bytes.len() {
         if bytes[i] == bytes[i-1] + 1 && bytes[i] == bytes[i-2] + 2 {
-            a = true;
+            increasing_straight = true;
         }
     }
-    a
+
+    for c in s.chars() {
+        match c {
+            'i' | 'o' | 'l' => return false,
+            _ => continue,
+        };
+    }
+
+    increasing_straight
 }
 
 fn main() {
