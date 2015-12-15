@@ -11,18 +11,28 @@ fn main() {
 
     let mut acc = 0;
     let mut stack = Vec::new();
-    stack.push(0);
+    // TODO This would be needed if the input didn't start with '{'
+    // stack.push(0);
     let mut acc_str = String::new();
     for c in input_string.chars() {
+        // println!("c: {}, stack: {:?}, acc_str: {}", c, stack, acc_str);
+        if c == '{' {
+            stack.push(0);
+            continue;
+        }
+
         if c.is_digit(10) || c == '-' {
             acc_str.push(c);
         } else {
             if let Ok(x) = i32::from_str_radix(&acc_str, 10) {
-                let len = stack.len();
-                stack[len-1] += x;
+                *stack.last_mut().unwrap() += x;
             }
             acc_str = String::new();
         }
+
+        if c == '}' {
+            acc += stack.pop().unwrap();
+        }
     }
-    println!("Acc: {}", stack.last().unwrap());
+    println!("Acc: {}", acc);
 }
