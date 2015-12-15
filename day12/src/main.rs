@@ -10,16 +10,19 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     let mut acc = 0;
+    let mut stack = Vec::new();
+    stack.push(0);
     let mut acc_str = String::new();
     for c in input_string.chars() {
         if c.is_digit(10) || c == '-' {
             acc_str.push(c);
         } else {
             if let Ok(x) = i32::from_str_radix(&acc_str, 10) {
-                acc += x;
+                let len = stack.len();
+                stack[len-1] += x;
             }
             acc_str = String::new();
         }
     }
-    println!("Acc: {}", acc);
+    println!("Acc: {}", stack.last().unwrap());
 }
