@@ -17,12 +17,17 @@ fn main() {
     // stack.push(0);
     let mut acc_str = String::new();
     // TODO Can read directly from input_file.chars() here
+    let mut red = false;
+    let mut red_depth = 0;
     for (i, c) in input_string.chars().enumerate() {
+        println!("{}", stack.len());
         // println!("c: {}, stack: {:?}, acc_str: {}", c, stack, acc_str);
         if i < extra_string.len() - 6 {
-            println!("{}", &extra_string[i..i+6]);
-            if &extra_string[i..i+6] == ":\"red\"" {
-                println!("RED");
+            // println!("{}", &extra_string[i..i+6]);
+            if &extra_string[i..i+6] == ":\"red\"" && !red {
+                red = true;
+                red_depth = stack.len();
+                println!("RED: {}", red_depth);
             }
         }
         if c == '{' {
@@ -40,7 +45,14 @@ fn main() {
         }
 
         if c == '}' {
-            acc += stack.pop().unwrap();
+            let val = stack.pop().unwrap();
+            if !red {
+                acc += val;
+            }
+            if stack.len() < red_depth {
+                red = false;
+                red_depth = 0;
+            }
         }
     }
     println!("Acc: {}", acc);
