@@ -9,13 +9,22 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let extra_string = input_string.clone();
+
     let mut acc = 0;
     let mut stack = Vec::new();
     // TODO This would be needed if the input didn't start with '{'
     // stack.push(0);
     let mut acc_str = String::new();
-    for c in input_string.chars() {
+    // TODO Can read directly from input_file.chars() here
+    for (i, c) in input_string.chars().enumerate() {
         // println!("c: {}, stack: {:?}, acc_str: {}", c, stack, acc_str);
+        if i < extra_string.len() - 6 {
+            println!("{}", &extra_string[i..i+6]);
+            if &extra_string[i..i+6] == ":\"red\"" {
+                println!("RED");
+            }
+        }
         if c == '{' {
             stack.push(0);
             continue;
