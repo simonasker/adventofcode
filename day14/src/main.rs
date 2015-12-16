@@ -85,6 +85,8 @@ fn main() {
                 } else {
                     flight[n] = r.flight_time;
                     rest[n] = r.rest_time;
+                    distances[n] += r.speed;
+                    flight[n] -= 1;
                 }
             }
         }
