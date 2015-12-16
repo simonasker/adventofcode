@@ -89,6 +89,15 @@ fn main() {
                     flight[n] -= 1;
                 }
             }
+            let mut leading_deer = 0;
+            let mut best_dist = 0;
+            for n in 0..reindeers.len() {
+                if distances[n] > best_dist {
+                    best_dist = distances[n];
+                    leading_deer = n;
+                }
+            }
+            score[leading_deer] += 1;
         }
 
         println!("Distances: {:?}", distances);
