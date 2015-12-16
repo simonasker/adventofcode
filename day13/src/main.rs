@@ -27,6 +27,8 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut people = HashSet::new();
     let mut happiness_map = HashMap::new();
 
@@ -37,11 +39,18 @@ fn main() {
         let pos = if v[2] == "gain" { 1 } else { -1 };
         let happiness = v[3].parse::<i32>().unwrap() * pos;
         happiness_map.insert((v[0], other), happiness);
+        if part == 2 {
+            happiness_map.insert((v[0], "Simon"), 0);
+            happiness_map.insert(("Simon", v[0]), 0);
+        }
     }
 
     let mut people_vec = Vec::new();
     for p in people {
         people_vec.push(p);
+    }
+    if part == 2 {
+        people_vec.push("Simon");
     }
     println!("People: {:?}", people_vec);
 
