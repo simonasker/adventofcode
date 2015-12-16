@@ -16,14 +16,10 @@ fn main() {
     // TODO This would be needed if the input didn't start with '{'
     // stack.push(0);
     let mut acc_str = String::new();
-    // TODO Can read directly from input_file.chars() here
     let mut red = false;
     let mut red_depth = 0;
     for (i, c) in input_string.chars().enumerate() {
-        println!("{}", stack.len());
-        // println!("c: {}, stack: {:?}, acc_str: {}", c, stack, acc_str);
         if i < extra_string.len() - 6 {
-            // println!("{}", &extra_string[i..i+6]);
             if &extra_string[i..i+6] == ":\"red\"" && !red {
                 red = true;
                 red_depth = stack.len();
@@ -46,7 +42,11 @@ fn main() {
 
         if c == '}' {
             let val = stack.pop().unwrap();
-            if !red {
+            if stack.len() > 0 {
+                if !red {
+                    *stack.last_mut().unwrap() += val;
+                }
+            } else {
                 acc += val;
             }
             if stack.len() < red_depth {
