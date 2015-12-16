@@ -52,4 +52,28 @@ fn main() {
     println!("Number of possible seatings: {:?}", seatings.len());
 
     println!("{:?}", happiness_map);
+
+    let num_people = people_vec.len();
+
+    let mut best_seating: i32 = i32::min_value();
+    for seating in seatings {
+        let mut seating_score: i32 = 0;
+        for i in 1 .. seating.len() {
+            seating_score += *happiness_map.get(&(seating[i-1], seating[i])).unwrap();
+            seating_score += *happiness_map.get(&(seating[i], seating[i-1])).unwrap();
+        }
+
+        seating_score += *happiness_map.get(
+            &(seating[0], seating[num_people-1])
+        ).unwrap();
+        seating_score += *happiness_map.get(
+            &(seating[num_people-1], seating[0])
+        ).unwrap();
+
+        if seating_score > best_seating {
+            best_seating = seating_score;
+        }
+
+    }
+    println!("Best seating score: {}", best_seating);
 }
