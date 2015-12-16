@@ -65,20 +65,27 @@ fn main() {
         let mut distances = vec![0; reindeers.len()];
         let mut score = vec![0; reindeers.len()];
 
-        let mut rest = vec![0; reindeers.len()];
         let mut flight = vec![0; reindeers.len()];
+        let mut rest = vec![0; reindeers.len()];
 
         for (n, r) in reindeers.iter().enumerate() {
-            rest[n] += r.rest_time;
             flight[n] += r.flight_time;
+            rest[n] += r.rest_time;
         }
-        println!("Rest: {:?}", rest);
         println!("Flight {:?}", flight);
+        println!("Rest: {:?}", rest);
 
         for i in 0..2503 {
             for (n, r) in reindeers.iter().enumerate() {
-                distances[n] += 1;
-                score[n] += 1;
+                if flight[n] > 0 {
+                    distances[n] += r.speed;
+                    flight[n] -= 1;
+                } else if rest[n] > 0 {
+                    rest[n] -= 1;
+                } else {
+                    flight[n] = r.flight_time;
+                    rest[n] = r.rest_time;
+                }
             }
         }
 
