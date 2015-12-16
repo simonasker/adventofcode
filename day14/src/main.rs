@@ -63,13 +63,26 @@ fn main() {
         println!("Winner: {}, {}", best_reindeer, best_distance);
     } else if part == 2 {
         let mut distances = vec![0; reindeers.len()];
+        let mut score = vec![0; reindeers.len()];
+
+        let mut rest = vec![0; reindeers.len()];
+        let mut flight = vec![0; reindeers.len()];
+
+        for (n, r) in reindeers.iter().enumerate() {
+            rest[n] += r.rest_time;
+            flight[n] += r.flight_time;
+        }
+        println!("Rest: {:?}", rest);
+        println!("Flight {:?}", flight);
 
         for i in 0..2503 {
             for (n, r) in reindeers.iter().enumerate() {
                 distances[n] += 1;
+                score[n] += 1;
             }
         }
 
-        println!("{:?}", distances);
+        println!("Distances: {:?}", distances);
+        println!("Score: {:?}", score);
     }
 }
