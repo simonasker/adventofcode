@@ -30,5 +30,31 @@ fn main() {
         });
     }
 
-    println!("{:?}", reindeers);
+
+    let mut best_distance = 0;
+    let mut best_reindeer = String::new();
+
+    for r in reindeers {
+        let mut total_time = 2503;
+        let mut flight_time = r.flight_time;
+        let mut distance = 0;
+
+        while total_time > 0 {
+            if flight_time > 0 {
+                total_time -= 1;
+                flight_time -= 1;
+                distance += r.speed;
+            } else {
+                total_time -= r.rest_time;
+                flight_time = r.flight_time;
+            }
+        }
+
+        if distance > best_distance {
+            best_distance = distance;
+            best_reindeer = r.name;
+        }
+    }
+
+    println!("Winner: {}, {}", best_reindeer, best_distance);
 }
