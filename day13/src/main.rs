@@ -28,17 +28,15 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     let mut people = HashSet::new();
-    /* let mut distances = HashMap::new(); */
+    let mut happiness_map = HashMap::new();
 
     for line in input_string.lines() {
         let v: Vec<&str> = line.split_whitespace().collect();
-
         people.insert(v[0]);
-
-        /* let distance = v[4].parse::<i32>().unwrap(); */
-
-        /* distances.insert((v[0], v[2]), distance); */
-        /* distances.insert((v[2], v[0]), distance); */
+        let other = v[10].trim_right_matches('.');
+        let pos = if v[2] == "gain" { 1 } else { -1 };
+        let happiness = v[3].parse::<i32>().unwrap() * pos;
+        happiness_map.insert((v[0], other), happiness);
     }
 
     let mut people_vec = Vec::new();
@@ -52,4 +50,6 @@ fn main() {
     permutations(people_vec.len(), &mut people_vec, &mut seatings);
 
     println!("Number of possible seatings: {:?}", seatings.len());
+
+    println!("{:?}", happiness_map);
 }
