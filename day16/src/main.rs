@@ -1,6 +1,10 @@
+extern crate regex;
+
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
+
+use regex::Regex;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
