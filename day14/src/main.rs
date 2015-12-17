@@ -19,6 +19,7 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     let part = args[2].parse::<i32>().unwrap();
+    let seconds = args[3].parse::<i32>().unwrap();
 
     let mut reindeers: Vec<Reindeer> = Vec::new();
 
@@ -39,7 +40,7 @@ fn main() {
         let mut best_reindeer = String::new();
 
         for r in reindeers {
-            let mut total_time = 2503;
+            let mut total_time = seconds;
             let mut flight_time = r.flight_time;
             let mut distance = 0;
 
@@ -54,6 +55,7 @@ fn main() {
                 }
             }
 
+            println!("{}: {}", r.name, distance);
             if distance > best_distance {
                 best_distance = distance;
                 best_reindeer = r.name;
@@ -75,7 +77,7 @@ fn main() {
         println!("Flight {:?}", flight);
         println!("Rest: {:?}", rest);
 
-        for i in 0..2503 {
+        for i in 0..seconds {
             for (n, r) in reindeers.iter().enumerate() {
                 if flight[n] > 0 {
                     distances[n] += r.speed;
@@ -89,15 +91,17 @@ fn main() {
                     flight[n] -= 1;
                 }
             }
-            let mut leading_deer = 0;
             let mut best_dist = 0;
             for n in 0..reindeers.len() {
                 if distances[n] > best_dist {
                     best_dist = distances[n];
-                    leading_deer = n;
                 }
             }
-            score[leading_deer] += 1;
+            for n in 0..reindeers.len() {
+                if distances[n] == best_dist {
+                    score[n] += 1;
+                }
+            }
         }
 
         println!("Distances: {:?}", distances);
