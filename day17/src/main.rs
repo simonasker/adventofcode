@@ -9,7 +9,11 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let mut containers = Vec::new();
+
     for line in input_string.lines() {
-        println!("{}", line);
+        containers.push(line.parse::<i32>().unwrap());
     }
+
+    println!("{:?}", containers);
 }
