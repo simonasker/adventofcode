@@ -2,6 +2,18 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+fn sums(conts: Vec<i32>, acc: &mut Vec<Vec<i32>>) {
+    println!("{:?}", conts);
+    let length = conts.len();
+    if length > 0 {
+        for i in 0 .. length {
+            let mut new_conts = conts.clone();
+            new_conts.remove(i);
+            sums(new_conts, acc);
+        }
+    }
+}
+
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -16,4 +28,9 @@ fn main() {
     }
 
     println!("{:?}", containers);
+    let mut acc: Vec<Vec<i32>> = Vec::new();
+    sums(containers, &mut acc);
+
+    println!("Acc size: {}", acc.len());
+
 }
