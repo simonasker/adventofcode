@@ -2,7 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
-const TARGET: i32 = 25;
+const TARGET: i32 = 150;
 
 fn sums(a: Vec<i32>, conts: Vec<i32>, acc: &mut Vec<Vec<i32>>) {
     let mut sum: i32 = 0;
@@ -19,7 +19,7 @@ fn sums(a: Vec<i32>, conts: Vec<i32>, acc: &mut Vec<Vec<i32>>) {
             let mut a1 = a.clone();
             a1.push(conts[i]);
             let mut new_conts = conts.clone();
-            new_conts.remove(i);
+            new_conts.split_off(i);
             sums(a1, new_conts, acc);
         }
     }
@@ -38,11 +38,9 @@ fn main() {
         containers.push(line.parse::<i32>().unwrap());
     }
 
-    println!("{:?}", containers);
     let mut acc: Vec<Vec<i32>> = Vec::new();
     sums(Vec::new(), containers, &mut acc);
 
-    println!("Acc: {:?}", acc);
     println!("Acc size: {}", acc.len());
 
 }
