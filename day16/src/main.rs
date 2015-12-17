@@ -3,6 +3,7 @@ extern crate regex;
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
+use std::collections::HashMap;
 
 use regex::Regex;
 
@@ -12,6 +13,19 @@ fn main() {
     let mut input_file = File::open(&args[1]).unwrap();
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
+
+    let mut known = HashMap::new();
+
+    known.insert("children", 3);
+    known.insert("cats", 7);
+    known.insert("samoyeds", 2);
+    known.insert("pomeranians", 3);
+    known.insert("akitas", 0);
+    known.insert("vizslas", 0);
+    known.insert("goldfish", 5);
+    known.insert("trees", 3);
+    known.insert("cars", 2);
+    known.insert("perfumes", 1);
 
     for line in input_string.lines() {
         let re = Regex::new(
