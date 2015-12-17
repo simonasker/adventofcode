@@ -27,17 +27,20 @@ fn main() {
     known.insert("cars", 2);
     known.insert("perfumes", 1);
 
-    for line in input_string.lines() {
+    'outer: for line in input_string.lines() {
         let re = Regex::new(
             r"Sue (\d+): (\w+): (\d+), (\w+): (\d+), (\w+): (\d+)"
         ).unwrap();
         let caps = re.captures(line).unwrap();
-        println!("{:?}", caps.at(0));
 
         for i in [2usize, 4usize, 6usize].iter() {
             let attr = caps.at(*i).unwrap();
             let num = caps.at(*i+1).unwrap().parse::<i32>().unwrap();
-            println!("{}: {}", attr, num);
+            if num != *known.get(attr).unwrap() {
+                continue 'outer;
+            }
         }
+        println!("{:?}", caps.at(0));
+        break 'outer;
     }
 }
