@@ -39,6 +39,7 @@ fn main() {
     let mut input_file = File::open(&args[1]).unwrap();
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
+    let part = args[2].parse::<i32>().unwrap();
 
     let mut ingredients: Vec<Ingredient> = Vec::new();
 
@@ -67,12 +68,14 @@ fn main() {
         let mut durability = 0i64;
         let mut flavour = 0i64;
         let mut texture = 0i64;
+        let mut calories = 0i64;
 
         for (i, ing) in ingredients.iter().enumerate() {
             capacity += (amount[i] * ing.capacity) as i64;
             durability += (amount[i] * ing.durability) as i64;
             flavour += (amount[i] * ing.flavour) as i64;
             texture += (amount[i] * ing.texture) as i64;
+            calories += (amount[i] * ing.calories) as i64;
         }
 
         if capacity < 0 {
@@ -91,7 +94,9 @@ fn main() {
         let score: i64 = capacity * durability * flavour * texture;
 
         if score > best_score {
-            best_score = score;
+            if part == 1 || calories == 500 {
+                best_score = score;
+            }
         }
     }
 
