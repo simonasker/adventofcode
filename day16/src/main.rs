@@ -14,6 +14,10 @@ fn main() {
     input_file.read_to_string(&mut input_string).unwrap();
 
     for line in input_string.lines() {
-        println!("{}", line);
+        let re = Regex::new(
+            r"Sue (\d+): (\w+): (\d+), (\w+): (\d+), (\w+): (\d+)"
+        ).unwrap();
+        let caps = re.captures(line).unwrap();
+        println!("{:?}", caps.at(0));
     }
 }
