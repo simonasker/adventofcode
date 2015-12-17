@@ -33,5 +33,11 @@ fn main() {
         ).unwrap();
         let caps = re.captures(line).unwrap();
         println!("{:?}", caps.at(0));
+
+        for i in [2usize, 4usize, 6usize].iter() {
+            let attr = caps.at(*i).unwrap();
+            let num = caps.at(*i+1).unwrap().parse::<i32>().unwrap();
+            println!("{}: {}", attr, num);
+        }
     }
 }
