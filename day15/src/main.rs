@@ -57,8 +57,43 @@ fn main() {
     }
 
     let mut amounts: Vec<Vec<i32>> = Vec::new();
-    // sums(Vec::new(), 100, 4, &mut amounts);
-    sums(Vec::new(), 100, 4, &mut amounts);
+    sums(Vec::new(), 100, ingredients.len() as i32, &mut amounts);
 
     println!("Number of combinations: {:?}", amounts.len());
+
+    let mut best_score = i64::min_value();
+    for amount in amounts {
+        let mut capacity = 0i64;
+        let mut durability = 0i64;
+        let mut flavour = 0i64;
+        let mut texture = 0i64;
+
+        for (i, ing) in ingredients.iter().enumerate() {
+            capacity += (amount[i] * ing.capacity) as i64;
+            durability += (amount[i] * ing.durability) as i64;
+            flavour += (amount[i] * ing.flavour) as i64;
+            texture += (amount[i] * ing.texture) as i64;
+        }
+
+        if capacity < 0 {
+            capacity = 0;
+        }
+        if durability < 0 {
+            durability = 0;
+        }
+        if flavour < 0 {
+            flavour = 0;
+        }
+        if texture < 0 {
+            texture = 0;
+        }
+
+        let score: i64 = capacity * durability * flavour * texture;
+
+        if score > best_score {
+            best_score = score;
+        }
+    }
+
+    println!("Best score: {}", best_score);
 }
