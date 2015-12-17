@@ -14,17 +14,17 @@ struct Ingredient {
 }
 
 fn sums(a: Vec<i32>, target: i32, n: i32, acc: &mut Vec<Vec<i32>>) {
+    let mut sum: i32 = 0;
+    for i in &a {
+        sum += *i;
+    }
     if n == 0 {
-        let mut sum: i32 = 0;
-        for i in &a {
-            sum += *i;
-        }
         if sum == target {
             let r = a.clone();
             acc.push(r);
         }
     } else {
-        for i in 0..target+1 {
+        for i in 0..target-sum+1 {
             let mut a2 = a.clone();
             a2.push(i);
             sums(a2, target, n-1, acc);
@@ -57,6 +57,7 @@ fn main() {
     }
 
     let mut amounts: Vec<Vec<i32>> = Vec::new();
+    // sums(Vec::new(), 100, 4, &mut amounts);
     sums(Vec::new(), 100, 4, &mut amounts);
 
     println!("Number of combinations: {:?}", amounts.len());
