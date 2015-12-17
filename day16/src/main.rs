@@ -14,6 +14,8 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut known = HashMap::new();
 
     known.insert("children", 3);
@@ -36,8 +38,23 @@ fn main() {
         for i in [2usize, 4usize, 6usize].iter() {
             let attr = caps.at(*i).unwrap();
             let num = caps.at(*i+1).unwrap().parse::<i32>().unwrap();
-            if num != *known.get(attr).unwrap() {
-                continue 'outer;
+
+            match attr {
+                "cats" | "trees" if part == 2 => {
+                    if num <= *known.get(attr).unwrap() {
+                        continue 'outer;
+                    }
+                },
+                "pomeranians" | "goldfish" if part == 2 => {
+                    if num >= *known.get(attr).unwrap() {
+                        continue 'outer;
+                    }
+                },
+                _ => {
+                    if num != *known.get(attr).unwrap() {
+                        continue 'outer;
+                    }
+                },
             }
         }
         println!("{:?}", caps.at(0));
