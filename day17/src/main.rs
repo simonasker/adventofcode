@@ -43,4 +43,18 @@ fn main() {
 
     println!("Acc size: {}", acc.len());
 
+    let mut num_sol = 0;
+    let mut min_num = i32::max_value();
+    for a in acc {
+        if (a.len() as i32) == min_num {
+            num_sol += 1;
+        }
+        if (a.len() as i32) < min_num {
+            min_num = a.len() as i32;
+            num_sol = 1;
+        }
+    }
+
+    println!("Minimum number of containers: {}", min_num);
+    println!("Number of minimum solutions: {}", num_sol);
 }
