@@ -62,20 +62,20 @@ fn main() {
 
     println!("Number of combinations: {:?}", amounts.len());
 
-    let mut best_score = i64::min_value();
+    let mut best_score = i32::min_value();
     for amount in amounts {
-        let mut capacity = 0i64;
-        let mut durability = 0i64;
-        let mut flavour = 0i64;
-        let mut texture = 0i64;
-        let mut calories = 0i64;
+        let mut capacity = 0;
+        let mut durability = 0;
+        let mut flavour = 0;
+        let mut texture = 0;
+        let mut calories = 0;
 
         for (i, ing) in ingredients.iter().enumerate() {
-            capacity += (amount[i] * ing.capacity) as i64;
-            durability += (amount[i] * ing.durability) as i64;
-            flavour += (amount[i] * ing.flavour) as i64;
-            texture += (amount[i] * ing.texture) as i64;
-            calories += (amount[i] * ing.calories) as i64;
+            capacity += amount[i] * ing.capacity;
+            durability += amount[i] * ing.durability;
+            flavour += amount[i] * ing.flavour;
+            texture += amount[i] * ing.texture;
+            calories += amount[i] * ing.calories;
         }
 
         if capacity < 0 {
@@ -91,7 +91,7 @@ fn main() {
             texture = 0;
         }
 
-        let score: i64 = capacity * durability * flavour * texture;
+        let score = capacity * durability * flavour * texture;
 
         if score > best_score {
             if part == 1 || calories == 500 {
