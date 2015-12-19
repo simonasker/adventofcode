@@ -20,7 +20,6 @@ fn main() {
         } else if line.len() == 0 {
             replacements_done = true;
         } else {
-            println!("{}", line);
             let v: Vec<&str> = line.split_whitespace().collect();
             if !replacements.contains_key(v[0]) {
                 let x: Vec<&str> = Vec::new();
@@ -35,20 +34,25 @@ fn main() {
 
     for i in 0..mol_len {
         let s = &molecule[i..i+1];
-        match replacements.get(s) {
-            Some(reps) => {
-                for r in reps {
-                    let new_mol = format!("{}{}{}",
-                        &molecule[0..i], r, &molecule[i+1..mol_len]);
-                    distinct_molecules.insert(new_mol);
-                }
-            },
-            None => println!("No match"),
+        if let Some(reps) = replacements.get(s) {
+            for r in reps {
+                let new_mol = format!("{}{}{}",
+                    &molecule[0..i], r, &molecule[i+1..mol_len]);
+                distinct_molecules.insert(new_mol);
+            }
         }
     }
 
-    println!("Replacements: {:?}", replacements);
-    println!("Molecule: {}", molecule);
-    println!("New molecules: {:?}", distinct_molecules);
-    println!("Number if new molecules: {:?}", distinct_molecules.len());
+    for i in 1..mol_len {
+        let s = &molecule[i-1..i+1];
+        if let Some(reps) = replacements.get(s) {
+            for r in reps {
+                let new_mol = format!("{}{}{}",
+                    &molecule[0..i-1], r, &molecule[i+1..mol_len]);
+                distinct_molecules.insert(new_mol);
+            }
+        }
+    }
+
+    println!("Number of new molecules: {:?}", distinct_molecules.len());
 }
