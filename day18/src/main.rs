@@ -4,10 +4,20 @@ use std::io::prelude::*;
 
 const SIZE: usize = 10;
 
-fn print_grid(grid: [[i32; SIZE]; SIZE]) {
+fn print_grid(grid: &[[i32; SIZE]; SIZE]) {
     for row in grid.iter() {
         println!("{:?}", row);
     }
+}
+
+fn count_lights(grid: &[[i32; SIZE]; SIZE]) -> i32 {
+    let mut lights: i32 = 0;
+    for row in grid.iter() {
+        for l in row.iter() {
+            lights += *l;
+        }
+    }
+    lights
 }
 
 fn main() {
@@ -27,5 +37,8 @@ fn main() {
         }
     }
 
-    print_grid(grid);
+    print_grid(&grid);
+
+    let num_lights = count_lights(&grid);
+    println!("Lights: {}", num_lights);
 }
