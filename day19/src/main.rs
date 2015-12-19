@@ -1,7 +1,7 @@
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -30,17 +30,17 @@ fn main() {
         }
     }
 
+    let mut distinct_molecules = HashSet::new();
     let mol_len = molecule.len();
 
     for i in 0..mol_len {
         let s = &molecule[i..i+1];
-        println!("Substring: {}", s);
         match replacements.get(s) {
             Some(reps) => {
                 for r in reps {
                     let new_mol = format!("{}{}{}",
                         &molecule[0..i], r, &molecule[i+1..mol_len]);
-                    println!("New: {}", new_mol);
+                    distinct_molecules.insert(new_mol);
                 }
             },
             None => println!("No match"),
@@ -49,4 +49,6 @@ fn main() {
 
     println!("Replacements: {:?}", replacements);
     println!("Molecule: {}", molecule);
+    println!("New molecules: {:?}", distinct_molecules);
+    println!("Number if new molecules: {:?}", distinct_molecules.len());
 }
