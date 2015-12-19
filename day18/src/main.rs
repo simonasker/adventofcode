@@ -2,7 +2,7 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
-const SIZE: usize = 6;
+const SIZE: usize = 100;
 
 fn print_grid(grid: &[[u8; SIZE]; SIZE]) {
     for row in grid.iter() {
@@ -61,9 +61,10 @@ fn num_neighbors(grid: &[[u8; SIZE]; SIZE], i: usize, j: usize) -> i32 {
 }
 
 fn step(grid: &[[u8; SIZE]; SIZE]) -> [[u8; SIZE]; SIZE] {
-    let mut new_grid = grid.clone();
+    let mut new_grid = [[0u8; SIZE]; SIZE];
     for i in 0..SIZE {
         for j in 0..SIZE {
+            new_grid[i][j] = grid[i][j];
             match grid[i][j] {
                 1 => {
                     match num_neighbors(&grid, i, j) {
@@ -105,7 +106,7 @@ fn main() {
     print_grid(&grid);
     println!("");
 
-    let num_steps = 4;
+    let num_steps = 100;
     for i in 0..num_steps {
         grid = step(&grid);
         println!("After step {}:", i);
