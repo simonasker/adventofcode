@@ -30,6 +30,23 @@ fn main() {
         }
     }
 
+    let mol_len = molecule.len();
+
+    for i in 0..mol_len {
+        let s = &molecule[i..i+1];
+        println!("Substring: {}", s);
+        match replacements.get(s) {
+            Some(reps) => {
+                for r in reps {
+                    let new_mol = format!("{}{}{}",
+                        &molecule[0..i], r, &molecule[i+1..mol_len]);
+                    println!("New: {}", new_mol);
+                }
+            },
+            None => println!("No match"),
+        }
+    }
+
     println!("Replacements: {:?}", replacements);
     println!("Molecule: {}", molecule);
 }
