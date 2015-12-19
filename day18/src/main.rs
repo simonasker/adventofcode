@@ -92,6 +92,8 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
+    let part = args[2].parse::<i32>().unwrap();
+
     let mut grid = [[0u8; SIZE]; SIZE];
 
     for (i, l) in input_string.lines().enumerate() {
@@ -102,6 +104,14 @@ fn main() {
         }
     }
 
+    // Set all corners to 1 for part two of the problem
+    if part == 2 {
+        grid[0][0] = 1;
+        grid[0][SIZE-1] = 1;
+        grid[SIZE-1][0] = 1;
+        grid[SIZE-1][SIZE-1] = 1;
+    }
+
     println!("Initial state:");
     print_grid(&grid);
     println!("");
@@ -109,7 +119,16 @@ fn main() {
     let num_steps = 100;
     for i in 0..num_steps {
         grid = step(&grid);
-        println!("After step {}:", i);
+
+        // Set all corners to 1 for part two of the problem
+        if part == 2 {
+            grid[0][0] = 1;
+            grid[0][SIZE-1] = 1;
+            grid[SIZE-1][0] = 1;
+            grid[SIZE-1][SIZE-1] = 1;
+        }
+
+        println!("After step {}:", i+1);
         print_grid(&grid);
         println!("");
     }
