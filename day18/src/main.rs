@@ -60,6 +60,30 @@ fn num_neighbors(grid: &[[i32; SIZE]; SIZE], i: usize, j: usize) -> i32 {
     result
 }
 
+fn step(grid: &[[i32; SIZE]; SIZE]) -> [[i32; SIZE]; SIZE] {
+    let mut new_grid = grid.clone();
+    for i in 0..SIZE {
+        for j in 0..SIZE {
+            match grid[i][j] {
+                1 => {
+                    match num_neighbors(&grid, i, j) {
+                        2 | 3 => continue,
+                        _ => new_grid[i][j] = 0,
+                    }
+                },
+                0 => {
+                    match num_neighbors(&grid, i, j) {
+                        3 => new_grid[i][j] = 1,
+                        _ => continue,
+                    }
+                },
+                _ => continue,
+            }
+        }
+    }
+    new_grid
+}
+
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -83,6 +107,7 @@ fn main() {
 
     let num_steps = 4;
     for i in 0..num_steps {
+        grid = step(&grid);
         println!("After step {}:", i);
         print_grid(&grid);
         println!("");
