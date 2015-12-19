@@ -2,11 +2,18 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
-const SIZE: usize = 10;
+const SIZE: usize = 6;
 
 fn print_grid(grid: &[[i32; SIZE]; SIZE]) {
     for row in grid.iter() {
-        println!("{:?}", row);
+        for l in row.iter() {
+            match *l {
+                0 => print!("."),
+                1 => print!("#"),
+                _ => print!("?"),
+            }
+        }
+        print!("\n");
     }
 }
 
@@ -70,13 +77,18 @@ fn main() {
         }
     }
 
+    println!("Initial state:");
     print_grid(&grid);
+    println!("");
+
+    let num_steps = 4;
+    for i in 0..num_steps {
+        println!("After step {}:", i);
+        print_grid(&grid);
+        println!("");
+    }
+
 
     let num_lights = count_lights(&grid);
     println!("Lights: {}", num_lights);
-    println!("Neighbors (4, 4): {}", num_neighbors(&grid, 4, 4));
-    println!("Neighbors (0, 0): {}", num_neighbors(&grid, 0, 0));
-    println!("Neighbors (0, 9): {}", num_neighbors(&grid, 0, 9));
-    println!("Neighbors (9, 0): {}", num_neighbors(&grid, 9, 0));
-    println!("Neighbors (9, 9): {}", num_neighbors(&grid, 9, 9));
 }
