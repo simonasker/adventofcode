@@ -4,7 +4,7 @@ use std::io::prelude::*;
 
 const SIZE: usize = 6;
 
-fn print_grid(grid: &[[i32; SIZE]; SIZE]) {
+fn print_grid(grid: &[[u8; SIZE]; SIZE]) {
     for row in grid.iter() {
         for l in row.iter() {
             match *l {
@@ -17,17 +17,17 @@ fn print_grid(grid: &[[i32; SIZE]; SIZE]) {
     }
 }
 
-fn count_lights(grid: &[[i32; SIZE]; SIZE]) -> i32 {
+fn count_lights(grid: &[[u8; SIZE]; SIZE]) -> i32 {
     let mut lights: i32 = 0;
     for row in grid.iter() {
         for l in row.iter() {
-            lights += *l;
+            lights += *l as i32;
         }
     }
     lights
 }
 
-fn num_neighbors(grid: &[[i32; SIZE]; SIZE], i: usize, j: usize) -> i32 {
+fn num_neighbors(grid: &[[u8; SIZE]; SIZE], i: usize, j: usize) -> i32 {
     let mut result = 0;
     // Check the top row
     if i > 0 {
@@ -57,10 +57,10 @@ fn num_neighbors(grid: &[[i32; SIZE]; SIZE], i: usize, j: usize) -> i32 {
     if j < SIZE-1 {
         result += grid[i][j+1];
     }
-    result
+    result as i32
 }
 
-fn step(grid: &[[i32; SIZE]; SIZE]) -> [[i32; SIZE]; SIZE] {
+fn step(grid: &[[u8; SIZE]; SIZE]) -> [[u8; SIZE]; SIZE] {
     let mut new_grid = grid.clone();
     for i in 0..SIZE {
         for j in 0..SIZE {
@@ -91,7 +91,7 @@ fn main() {
     let mut input_string = String::new();
     input_file.read_to_string(&mut input_string).unwrap();
 
-    let mut grid = [[0; SIZE]; SIZE];
+    let mut grid = [[0u8; SIZE]; SIZE];
 
     for (i, l) in input_string.lines().enumerate() {
         for (j, c) in l.chars().enumerate() {
