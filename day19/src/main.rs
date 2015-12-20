@@ -13,7 +13,6 @@ fn main() {
     let mut replacements = HashMap::new();
 
     let mut target = String::new();
-    let mut molecule = "e".to_string();
     let mut replacements_done = false;
     for line in input_string.lines() {
         if replacements_done {
@@ -32,41 +31,55 @@ fn main() {
 
     println!("Target: {}", target);
 
-    let mut distinct_molecules = HashSet::new();
-    let mol_len = molecule.len();
+    let mut current_iteration = HashSet::new();
+    let mut next_iteration = HashSet::new();
     let mut iterations = 0;
+
+    let mut starting_molecule = "e".to_string();
+    next_iteration.insert(starting_molecule);
 
     'main: loop {
         iterations += 1;
 
-        for i in 0..mol_len {
-            let s = &molecule[i..i+1];
-            if let Some(reps) = replacements.get(s) {
-                for r in reps {
-                    let new_mol = format!("{}{}{}",
-                        &molecule[0..i], r, &molecule[i+1..mol_len]);
-                    if new_mol == target {
-                        println!("Found target: {}", new_mol);
-                        break 'main;
+        current_iteration = next_iteration;
+        next_iteration = HashSet::new();
+
+        for mol in current_iteration {
+            let mol_len = mol.len();
+
+            for i in 0..mol_len {
+                let s = &mol[i..i+1];
+                if let Some(reps) = replacements.get(s) {
+                    for r in reps {
+                        let new_mol = format!("{}{}{}",
+                            &mol[0..i], r, &mol[i+1..mol_len]);
+                        if new_mol == target {
+                            println!("Found target: {}", new_mol);
+                            break 'main;
+                        } else {
+                            next_iteration.insert(new_mol);
+                        }
                     }
-                    distinct_molecules.insert(new_mol);
                 }
             }
-        }
 
-        for i in 1..mol_len {
-            let s = &molecule[i-1..i+1];
-            if let Some(reps) = replacements.get(s) {
-                for r in reps {
-                    let new_mol = format!("{}{}{}",
-                        &molecule[0..i-1], r, &molecule[i+1..mol_len]);
-                    distinct_molecules.insert(new_mol);
+            for i in 1..mol_len {
+                let s = &mol[i-1..i+1];
+                if let Some(reps) = replacements.get(s) {
+                    for r in reps {
+                        let new_mol = format!("{}{}{}",
+                            &mol[0..i-1], r, &mol[i+1..mol_len]);
+                        if new_mol == target {
+                            println!("Found target: {}", new_mol);
+                            break 'main;
+                        } else {
+                            next_iteration.insert(new_mol);
+                        }
+                    }
                 }
             }
         }
     }
 
-    println!("New molecules: {:?}", distinct_molecules);
-    println!("Number of new molecules: {:?}", distinct_molecules.len());
     println!("Iterations: {}", iterations);
 }
