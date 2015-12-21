@@ -43,6 +43,8 @@ fn main() {
 
         current_iteration = next_iteration;
         next_iteration = HashSet::new();
+        println!("Iteration: {}, molecules: {}", iterations,
+            current_iteration.len());
 
         for mol in current_iteration {
             let mol_len = mol.len();
