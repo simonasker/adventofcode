@@ -1,6 +1,6 @@
 extern crate regex;
 
-use std::env;
+use std::{env, cmp};
 use std::fs::File;
 use std::io::prelude::*;
 
@@ -81,5 +81,20 @@ fn main() {
             armor += item.armor;
         }
         println!("Cost: {}, Damage: {}, Armor: {}", cost, damage, armor);
+
+        let mut player_hp = 100;
+        let mut boss_hp = boss.hp;
+        loop {
+            boss_hp -= cmp::max((damage - boss.armor), 1);
+            if boss_hp <= 0 {
+                println!("boss dead");
+                break;
+            }
+            player_hp -= cmp::max((boss.damage - armor), 1);
+            if player_hp <= 0 {
+                println!("player dead");
+                break;
+            }
+        }
     }
 }
