@@ -14,6 +14,13 @@ struct Item {
     armor: i32,
 }
 
+#[derive(Debug)]
+struct Boss {
+    hp: i32,
+    damage: i32,
+    armor: i32,
+}
+
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -23,7 +30,6 @@ fn main() {
     let mut boss_string = String::new();
     shop_file.read_to_string(&mut shop_string).unwrap();
     boss_file.read_to_string(&mut boss_string).unwrap();
-
 
     let mut items: Vec<Item> = Vec::new();
     let re = Regex::new(r"(\w+(?: \+\d)?)\s*(\d+)\s*(\d+)\s*(\d+)").unwrap();
@@ -39,11 +45,16 @@ fn main() {
         }
     }
 
+    let boss_v: Vec<&str> = boss_string.split_whitespace().collect();
+    let boss = Boss {
+        hp: boss_v[2].parse::<i32>().unwrap(),
+        damage: boss_v[4].parse::<i32>().unwrap(),
+        armor: boss_v[6].parse::<i32>().unwrap(),
+    };
+
+
     for item in items {
         println!("{:?}", item);
     }
-
-    for line in boss_string.lines() {
-        println!("{}", line);
-    }
+    println!("{:?}", boss);
 }
