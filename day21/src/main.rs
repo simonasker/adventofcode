@@ -67,7 +67,8 @@ fn main() {
 
     println!("Number of load outs: {}", load_outs.len());
 
-    let mut lowest_cost = i32::max_value();
+    let mut lowest_winning_cost = i32::max_value();
+    let mut highest_losing_cost = i32::min_value();
     for lo in load_outs {
         let mut cost = 0;
         let mut damage = 0;
@@ -93,10 +94,14 @@ fn main() {
                 break;
             }
         }
-        if player_won && cost < lowest_cost {
-            lowest_cost = cost;
+        if player_won && cost < lowest_winning_cost {
+            lowest_winning_cost = cost;
+        }
+        if !player_won && cost > highest_losing_cost {
+            highest_losing_cost = cost;
         }
     }
 
-    println!("Lowest cost: {}", lowest_cost);
+    println!("Lowest winning cost: {}", lowest_winning_cost);
+    println!("Highest losing cost: {}", highest_losing_cost);
 }
