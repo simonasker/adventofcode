@@ -54,9 +54,9 @@ fn main() {
 
     let mut load_outs: Vec<[i32; 4]> = Vec::new();
     for w in 0..5 {
-        for a in 5..10 {
-            for r1 in 10..15 {
-                for r2 in r1+1..16 {
+        for a in 5..11 {
+            for r1 in 11..17 {
+                for r2 in r1+1..18 {
                     // TODO handle load outs with no armor or 0 or 1 rings.
                     let load_out = [w, a, r1, r2];
                     load_outs.push(load_out);
