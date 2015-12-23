@@ -53,9 +53,6 @@ fn main() {
     };
 
 
-    for item in items {
-        println!("{:?}", item);
-    }
     println!("{:?}", boss);
 
     let mut load_outs: Vec<[i32; 4]> = Vec::new();
@@ -72,4 +69,17 @@ fn main() {
     }
 
     println!("Number of load outs: {}", load_outs.len());
+
+    for lo in load_outs {
+        let mut cost = 0;
+        let mut damage = 0;
+        let mut armor = 0;
+        for i in lo.iter() {
+            let item = &items[*i as usize];
+            cost += item.cost;
+            damage += item.damage;
+            armor += item.armor;
+        }
+        println!("Cost: {}, Damage: {}, Armor: {}", cost, damage, armor);
+    }
 }
