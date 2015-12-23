@@ -1,6 +1,10 @@
+use std::env;
 use std::collections::HashSet;
 
 fn main() {
+    let args: Vec<_> = env::args().collect();
+    let part = args[1].parse::<i32>().unwrap();
+
     for house in 1.. {
         let mut presents = 0;
 
@@ -15,7 +19,13 @@ fn main() {
         }
 
         for e in elves {
-            presents += e * 10;
+            if part == 1 {
+                presents += e * 10;
+            } else if part == 2 {
+                if house <= e * 50 {
+                    presents += e * 11;
+                }
+            }
         }
 
         println!("House {} got {} presents.", house, presents);
