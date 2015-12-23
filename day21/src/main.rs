@@ -52,9 +52,6 @@ fn main() {
         armor: boss_v[6].parse::<i32>().unwrap(),
     };
 
-
-    println!("{:?}", boss);
-
     let mut load_outs: Vec<[i32; 4]> = Vec::new();
     for w in 0..5 {
         for a in 5..10 {
@@ -70,6 +67,7 @@ fn main() {
 
     println!("Number of load outs: {}", load_outs.len());
 
+    let mut lowest_cost = i32::max_value();
     for lo in load_outs {
         let mut cost = 0;
         let mut damage = 0;
@@ -80,21 +78,25 @@ fn main() {
             damage += item.damage;
             armor += item.armor;
         }
-        println!("Cost: {}, Damage: {}, Armor: {}", cost, damage, armor);
 
         let mut player_hp = 100;
         let mut boss_hp = boss.hp;
+        let mut player_won = false;
         loop {
             boss_hp -= cmp::max((damage - boss.armor), 1);
             if boss_hp <= 0 {
-                println!("boss dead");
+                player_won = true;
                 break;
             }
             player_hp -= cmp::max((boss.damage - armor), 1);
             if player_hp <= 0 {
-                println!("player dead");
                 break;
             }
         }
+        if player_won && cost < lowest_cost {
+            lowest_cost = cost;
+        }
     }
+
+    println!("Lowest cost: {}", lowest_cost);
 }
