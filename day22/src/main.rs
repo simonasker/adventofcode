@@ -8,6 +8,7 @@ struct Boss {
     damage: i32,
 }
 
+
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -21,5 +22,35 @@ fn main() {
         damage: boss_v[4].parse::<i32>().unwrap(),
     };
 
-    println!("{:?}", boss);
+    let mut player_hp = 10;
+    let mut player_armor = 0;
+    let mut player_mana = 250;
+
+    let mut boss_hp = 13;
+    let mut boss_damage = 8;
+
+    let mut turn = 0;
+
+    loop {
+        turn += 1;
+        println!("{}) -- Player turn --", turn);
+        println!("- Player has {} hit points, {} armor, {} mana",
+            player_hp, player_armor, player_mana);
+        println!("- Boss has {} hit point", boss_hp);
+        println!("ATTACKS AND EFFECTS");
+        println!("");
+
+        turn += 1;
+        println!("{}) -- Boss turn --", turn);
+        println!("- Player has {} hit points, {} armor, {} mana",
+            player_hp, player_armor, player_mana);
+        println!("- Boss has {} hit point", boss_hp);
+        println!("ATTACKS AND EFFECTS");
+        println!("");
+
+
+        if turn >= 10 {
+            break;
+        }
+    }
 }
