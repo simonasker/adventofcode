@@ -45,12 +45,15 @@ fn main() {
         println!("- Player has {} hit points, {} armor, {} mana",
             player_hp, player_armor, player_mana);
         println!("- Boss has {} hit point", boss_hp);
-        println!("ATTACKS AND EFFECTS");
-        println!("");
+        player_hp -= (boss_damage - player_armor);
+        println!("Boss attacks for {} - {} = {} damage!",
+            boss_damage, player_armor, (boss_damage - player_armor));
 
-
-        if turn >= 10 {
+        if player_hp <= 0 {
+            println!("Player dies");
             break;
         }
+        println!("");
+        println!("-------------------------------------------------------\n");
     }
 }
