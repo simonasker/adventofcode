@@ -54,13 +54,33 @@ fn main() {
 
     let mut turn = 0;
 
+    let mut spell_index = 0;
+    let mut active_spells = [0; 5];
+
+
     loop {
         turn += 1;
         println!("{}) -- Player turn --", turn);
         println!("- Player has {} hit points, {} armor, {} mana",
             player_hp, player_armor, player_mana);
         println!("- Boss has {} hit point", boss_hp);
-        println!("ATTACKS AND EFFECTS");
+
+        // TODO since not all spells work the same way the generic spell struct
+        // approach probably won't work. Try to implement this with a big match
+        // clause instead. It might also be better to let one loop iteration =
+        // one turn to avoid having to check things twice.
+        for i in 0..5 {
+            if active_spells[i] > 0 {
+                active_spells[i] -= 1;
+                let s = &spells[i];
+            }
+        }
+
+        spell_index = 0;
+        println!("Player casts {}", spells[spell_index].name);
+        active_spells[spell_index] = spells[spell_index].turns;
+
+
         println!("");
 
         turn += 1;
