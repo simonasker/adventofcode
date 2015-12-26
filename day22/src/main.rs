@@ -77,8 +77,27 @@ fn main() {
                 }
             }
 
-            spell_index = 0;
-            println!("Player casts {}", spells[spell_index].name);
+            spell_index = 4;
+
+            match spell_index {
+                0 => {
+                    println!("Player casts Magic Missile");
+                },
+                1 => {
+                    println!("Player casts Drain");
+                },
+                2 => {
+                    println!("Player casts Shield");
+                },
+                3 => {
+                    println!("Player casts Poison");
+                },
+                4 => {
+                    println!("Player casts Recharge");
+                },
+                _ => println!("No such spell"),
+            }
+
             active_spells[spell_index] = spells[spell_index].turns;
         } else {  // Boss turn
             player_hp -= (boss_damage - player_armor);
