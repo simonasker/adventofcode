@@ -94,7 +94,5 @@ fn main() {
             println!("Boss dies. Player wins!");
             break;
         }
-        println!("");
-        println!("-------------------------------------------------------\n");
     }
 }
