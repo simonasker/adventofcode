@@ -25,6 +25,8 @@ fn main() {
     let mut player_armor = 0;
     let mut player_mana = 250;
 
+    let mut mana_spent = 0;
+
     let mut boss_hp = 13;
     let mut boss_damage = 8;
 
@@ -57,6 +59,7 @@ fn main() {
                     println!("Player does 4 damage");
                     boss_hp -= 4;
                     player_mana -= 53;
+                    mana_spent += 53;
                 },
                 1 => {
                     println!("Player casts Drain");
