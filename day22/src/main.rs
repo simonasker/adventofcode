@@ -48,11 +48,15 @@ fn main() {
                 }
             }
 
-            spell_index = 4;
+            spell_index = 0;
 
+            // TODO Modify the output to match the example
             match spell_index {
                 0 => {
                     println!("Player casts Magic Missile");
+                    println!("Player does 4 damage");
+                    boss_hp -= 4;
+                    player_mana -= 53;
                 },
                 1 => {
                     println!("Player casts Drain");
