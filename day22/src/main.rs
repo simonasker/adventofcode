@@ -8,18 +8,6 @@ struct Boss {
     damage: i32,
 }
 
-#[derive(Debug)]
-struct Spell {
-    name: String,
-    cost: i32,
-    turns: i32,
-    dmg: i32,
-    hp_heal: i32,
-    mana_heal: i32,
-    armor_boost: i32,
-}
-
-
 fn main() {
     let args: Vec<_> = env::args().collect();
 
@@ -33,18 +21,6 @@ fn main() {
         damage: boss_v[4].parse::<i32>().unwrap(),
     };
 
-    let mut spells: Vec<Spell> = Vec::new();
-    spells.push(Spell { name: "Magic Missile".to_string(), cost: 53,
-    turns: 1, dmg: 4, hp_heal: 0, mana_heal: 0, armor_boost: 0 });
-    spells.push(Spell { name: "Drain".to_string(), cost: 73,
-    turns: 1, dmg: 2, hp_heal: 2, mana_heal: 0, armor_boost: 0 });
-    spells.push(Spell { name: "Shield".to_string(), cost: 113,
-    turns: 6, dmg: 0, hp_heal: 0, mana_heal: 0, armor_boost: 7 });
-    spells.push(Spell { name: "Poison".to_string(), cost: 173,
-    turns: 6, dmg: 3, hp_heal: 0, mana_heal: 0, armor_boost: 0 });
-    spells.push(Spell { name: "Recharge".to_string(), cost: 229,
-    turns: 5, dmg: 0, hp_heal: 0, mana_heal: 101, armor_boost: 0 });
-
     let mut player_hp = 10;
     let mut player_armor = 0;
     let mut player_mana = 250;
@@ -54,7 +30,6 @@ fn main() {
 
     let mut spell_index = 0;
     let mut active_spells = [0; 5];
-
 
     for turn in 0.. {
         if turn % 2 == 0 {
@@ -67,13 +42,9 @@ fn main() {
         println!("- Boss has {} hit point", boss_hp);
 
         if turn % 2 == 0 {  // Player turn
-            // TODO since not all spells work the same way the generic spell struct
-            // approach probably won't work. Try to implement this with a big match
-            // clause instead.
             for i in 0..5 {
                 if active_spells[i] > 0 {
                     active_spells[i] -= 1;
-                    let s = &spells[i];
                 }
             }
 
@@ -98,7 +69,6 @@ fn main() {
                 _ => println!("No such spell"),
             }
 
-            active_spells[spell_index] = spells[spell_index].turns;
         } else {  // Boss turn
             player_hp -= (boss_damage - player_armor);
             println!("Boss attacks for {} - {} = {} damage!",
