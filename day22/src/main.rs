@@ -50,7 +50,7 @@ fn main() {
                 }
             }
 
-            spell_index = 0;
+            spell_index = 1;
 
             // TODO Modify the output to match the example
             match spell_index {
@@ -63,6 +63,10 @@ fn main() {
                 },
                 1 => {
                     println!("Player casts Drain");
+                    boss_hp -= 2;
+                    player_hp += 2;
+                    player_mana -= 73;
+                    mana_spent += 73;
                 },
                 2 => {
                     println!("Player casts Shield");
