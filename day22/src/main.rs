@@ -33,6 +33,9 @@ fn main() {
     let mut spell_index = 0;
     let mut active_spells = [0; 5];
 
+    // TODO Remove this. It is just to test active spell effects.
+    active_spells[0] = 2;
+
     for turn in 0.. {
         if turn % 2 == 0 {
             println!("{}) -- Player turn --", turn);
@@ -44,12 +47,6 @@ fn main() {
         println!("- Boss has {} hit point", boss_hp);
 
         if turn % 2 == 0 {  // Player turn
-            for i in 0..5 {
-                if active_spells[i] > 0 {
-                    active_spells[i] -= 1;
-                }
-            }
-
             spell_index = 1;
 
             // TODO Modify the output to match the example
@@ -84,6 +81,13 @@ fn main() {
             player_hp -= (boss_damage - player_armor);
             println!("Boss attacks for {} - {} = {} damage!",
                 boss_damage, player_armor, (boss_damage - player_armor));
+        }
+
+        for i in 0..5 {
+            if active_spells[i] > 0 {
+                println!("Applying effect of spell {}", i);
+                active_spells[i] -= 1;
+            }
         }
 
         if player_hp <= 0 {
