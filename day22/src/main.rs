@@ -99,4 +99,5 @@ fn main() {
             break;
         }
     }
+    println!("Spent mana: {}", mana_spent);
 }
