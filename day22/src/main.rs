@@ -98,6 +98,7 @@ fn main() {
             println!("Boss dies. Player wins!");
             break;
         }
+        println!("");
     }
     println!("Spent mana: {}", mana_spent);
 }
