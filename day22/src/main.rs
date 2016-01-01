@@ -52,14 +52,15 @@ fn main() {
             // TODO Modify the output to match the example
             match spell_index {
                 0 => {
-                    println!("Player casts Magic Missile");
+                    println!("Player casts Magic Missile, dealing 4 damage.");
                     println!("Player does 4 damage");
                     boss_hp -= 4;
                     player_mana -= 53;
                     mana_spent += 53;
                 },
                 1 => {
-                    println!("Player casts Drain");
+                    println!(
+                        "Player casts Drain, dealing 2 damage, and healing 2 hit points.");
                     boss_hp -= 2;
                     player_hp += 2;
                     player_mana -= 73;
