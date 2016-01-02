@@ -49,7 +49,6 @@ fn main() {
         if turn % 2 == 0 {  // Player turn
             spell_index = 1;
 
-            // TODO Modify the output to match the example
             match spell_index {
                 0 => {
                     println!("Player casts Magic Missile, dealing 4 damage.");
