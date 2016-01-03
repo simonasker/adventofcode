@@ -33,9 +33,6 @@ fn main() {
     let mut spell_index = 0;
     let mut active_spells = [0; 5];
 
-    // TODO Remove this. It is just to test active spell effects.
-    active_spells[0] = 2;
-
     for turn in 0.. {
         if turn % 2 == 0 {
             println!("{}) -- Player turn --", turn);
@@ -47,7 +44,7 @@ fn main() {
         println!("- Boss has {} hit point", boss_hp);
 
         if turn % 2 == 0 {  // Player turn
-            spell_index = 1;
+            spell_index = 2;
 
             match spell_index {
                 0 => {
@@ -65,15 +62,19 @@ fn main() {
                     player_mana -= 73;
                     mana_spent += 73;
                 },
-                2 => {
+                2 if active_spells[2] == 0 => {
                     println!("Player casts Shield");
+                    active_spells[2] = 6;
                 },
-                3 => {
+                3 if active_spells[3] == 0 => {
                     println!("Player casts Poison");
+                    active_spells[3] = 6;
                 },
-                4 => {
+                4 if active_spells[4] == 0 => {
                     println!("Player casts Recharge");
+                    active_spells[4] = 5;
                 },
+                2 | 3 | 4 => println!("Spell already active"),
                 _ => println!("No such spell"),
             }
 
@@ -83,10 +84,12 @@ fn main() {
                 boss_damage, player_armor, (boss_damage - player_armor));
         }
 
+        // TODO Spell effects should not start applying until the next turn
         for i in 0..5 {
             if active_spells[i] > 0 {
-                println!("Applying effect of spell {}", i);
                 active_spells[i] -= 1;
+                println!("Applying effect of spell {}. It's timer is now {}",
+                    i, active_spells[i]);
             }
         }
 
