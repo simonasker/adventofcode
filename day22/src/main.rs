@@ -43,6 +43,15 @@ fn main() {
             player_hp, player_armor, player_mana);
         println!("- Boss has {} hit point", boss_hp);
 
+        // Apply any effects of spells that are activated
+        for i in 0..5 {
+            if active_spells[i] > 0 {
+                active_spells[i] -= 1;
+                println!("Applying effect of spell {}. It's timer is now {}",
+                    i, active_spells[i]);
+            }
+        }
+
         if turn % 2 == 0 {  // Player turn
             spell_index = 2;
 
@@ -82,15 +91,6 @@ fn main() {
             player_hp -= (boss_damage - player_armor);
             println!("Boss attacks for {} - {} = {} damage!",
                 boss_damage, player_armor, (boss_damage - player_armor));
-        }
-
-        // TODO Spell effects should not start applying until the next turn
-        for i in 0..5 {
-            if active_spells[i] > 0 {
-                active_spells[i] -= 1;
-                println!("Applying effect of spell {}. It's timer is now {}",
-                    i, active_spells[i]);
-            }
         }
 
         if player_hp <= 0 {
