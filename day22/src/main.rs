@@ -74,14 +74,20 @@ fn main() {
                 2 if active_spells[2] == 0 => {
                     println!("Player casts Shield");
                     active_spells[2] = 6;
+                    player_mana -= 113;
+                    mana_spent += 113;
                 },
                 3 if active_spells[3] == 0 => {
                     println!("Player casts Poison");
                     active_spells[3] = 6;
+                    player_mana -= 173;
+                    mana_spent += 173;
                 },
                 4 if active_spells[4] == 0 => {
                     println!("Player casts Recharge");
                     active_spells[4] = 5;
+                    player_mana -= 229;
+                    mana_spent += 229;
                 },
                 2 | 3 | 4 => println!("Spell already active"),
                 _ => println!("No such spell"),
