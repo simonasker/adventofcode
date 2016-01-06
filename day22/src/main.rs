@@ -39,6 +39,13 @@ fn main() {
         } else {
             println!("{}) -- Boss turn --", turn);
         }
+
+        // Apply effect of Shield
+        player_armor = 0;
+        if active_spells[2] > 0 {
+            player_armor = 7;
+        }
+
         println!("- Player has {} hit points, {} armor, {} mana",
             player_hp, player_armor, player_mana);
         println!("- Boss has {} hit point", boss_hp);
@@ -66,7 +73,7 @@ fn main() {
         }
 
         if turn % 2 == 0 {  // Player turn
-            spell_index = 4;
+            spell_index = 2;
 
             match spell_index {
                 0 => {
