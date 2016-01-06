@@ -60,6 +60,7 @@ fn main() {
                     4 => {
                         println!("Recharge provides 101 mana; its timer is now {}",
                             active_spells[i]);
+                        player_mana += 101;
                     },
                     _ => println!("No a lasting spell"),
                 }
@@ -67,7 +68,7 @@ fn main() {
         }
 
         if turn % 2 == 0 {  // Player turn
-            spell_index = 3;
+            spell_index = 4;
 
             match spell_index {
                 0 => {
