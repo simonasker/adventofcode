@@ -43,28 +43,26 @@ fn main() {
             player_hp, player_armor, player_mana);
         println!("- Boss has {} hit point", boss_hp);
 
-        // Apply any effects of spells that are activated
-        for i in 0..5 {
-            if active_spells[i] > 0 {
-                active_spells[i] -= 1;
-                match i {
-                    2 => {
-                        println!("Shield's timer is now {}.",
-                            active_spells[i]);
-                    },
-                    3 => {
-                        println!("Poison deals 3 damage; its timer is now {}.",
-                            active_spells[i]);
-                        boss_hp -= 3;
-                    },
-                    4 => {
-                        println!("Recharge provides 101 mana; its timer is now {}",
-                            active_spells[i]);
-                        player_mana += 101;
-                    },
-                    _ => println!("No a lasting spell"),
-                }
-            }
+        // Print out Shield's timer
+        if active_spells[2] > 0 {
+            active_spells[2] -= 1;
+            println!("Shield's timer is now {}.", active_spells[2]);
+        }
+
+        // Apply effect of Poison and print out timer
+        if active_spells[3] > 0 {
+            active_spells[3] -= 1;
+            println!("Poison deals 3 damage; its timer is now {}.",
+                active_spells[3]);
+            boss_hp -= 3;
+        }
+
+        // Apply effect of Recharge and print out timer
+        if active_spells[4] > 0 {
+            active_spells[4] -= 1;
+            println!("Recharge provides 101 mana; its timer is now {}",
+                active_spells[4]);
+            player_mana += 101;
         }
 
         if turn % 2 == 0 {  // Player turn
