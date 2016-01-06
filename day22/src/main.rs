@@ -47,8 +47,21 @@ fn main() {
         for i in 0..5 {
             if active_spells[i] > 0 {
                 active_spells[i] -= 1;
-                println!("Applying effect of spell {}. It's timer is now {}",
-                    i, active_spells[i]);
+                match i {
+                    2 => {
+                        println!("Shield's timer is now {}.",
+                            active_spells[i]);
+                    },
+                    3 => {
+                        println!("Poison deals 3 damage; its timer is now {}.",
+                            active_spells[i]);
+                    },
+                    4 => {
+                        println!("Recharge provides 101 mana; its timer is now {}",
+                            active_spells[i]);
+                    },
+                    _ => println!("No a lasting spell"),
+                }
             }
         }
 
