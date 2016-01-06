@@ -55,6 +55,7 @@ fn main() {
                     3 => {
                         println!("Poison deals 3 damage; its timer is now {}.",
                             active_spells[i]);
+                        boss_hp -= 3;
                     },
                     4 => {
                         println!("Recharge provides 101 mana; its timer is now {}",
@@ -66,7 +67,7 @@ fn main() {
         }
 
         if turn % 2 == 0 {  // Player turn
-            spell_index = 2;
+            spell_index = 3;
 
             match spell_index {
                 0 => {
