@@ -76,14 +76,14 @@ fn main() {
             spell_index = 2;
 
             match spell_index {
-                0 => {
+                0  if player_mana >= 53 => {
                     println!("Player casts Magic Missile, dealing 4 damage.");
                     println!("Player does 4 damage");
                     boss_hp -= 4;
                     player_mana -= 53;
                     mana_spent += 53;
                 },
-                1 => {
+                1 if player_mana >= 73 => {
                     println!(
                         "Player casts Drain, dealing 2 damage, and healing 2 hit points.");
                     boss_hp -= 2;
@@ -91,26 +91,25 @@ fn main() {
                     player_mana -= 73;
                     mana_spent += 73;
                 },
-                2 if active_spells[2] == 0 => {
+                2 if player_mana >= 113 && active_spells[2] == 0 => {
                     println!("Player casts Shield");
                     active_spells[2] = 6;
                     player_mana -= 113;
                     mana_spent += 113;
                 },
-                3 if active_spells[3] == 0 => {
+                3 if player_mana >= 173 && active_spells[3] == 0 => {
                     println!("Player casts Poison");
                     active_spells[3] = 6;
                     player_mana -= 173;
                     mana_spent += 173;
                 },
-                4 if active_spells[4] == 0 => {
+                4 if player_mana >= 229 && active_spells[4] == 0 => {
                     println!("Player casts Recharge");
                     active_spells[4] = 5;
                     player_mana -= 229;
                     mana_spent += 229;
                 },
-                2 | 3 | 4 => println!("Spell already active"),
-                _ => println!("No such spell"),
+                _ => println!("Invalid spell"),
             }
 
         } else {  // Boss turn
